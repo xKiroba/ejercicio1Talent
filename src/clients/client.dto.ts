@@ -1,11 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { throws } from "assert";
 import { IsEmail } from "class-validator";
 
-export class UserDTO {
+export class ClientDTO {
 
     @ApiProperty()
-    readonly names: string;
+    readonly name: string;
 
     @ApiProperty()
     readonly lastname: string;
@@ -15,17 +14,17 @@ export class UserDTO {
     readonly email: string;
 
     @ApiProperty()
-    readonly tel: string;
+    readonly phone: string;
 
     @ApiProperty()
     readonly rut: string;
 
-    constructor( names: string,lastname:string,email:string,tel:string,rut:string) {
+    constructor( name: string,lastname:string,email:string,phone:string,rut:string) {
         
-        this.names = names;
+        this.name = name;
         this.lastname= lastname;
         this.email=email;
-        this.tel=tel;
+        this.phone=phone;
         this.rut=rut;
 
     }
