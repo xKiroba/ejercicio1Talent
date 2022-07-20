@@ -1,20 +1,32 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { ClientDTO } from '../client.dto';
+import { Body, Controller, Delete, Get, Inject, Param, Post, Put } from '@nestjs/common';
+import { ClientDTO } from '../dto/client.dto';
+import { ClientsRepository } from '../repository/client.repository';
+import { ClientsService } from '../service/client.service';
 
-@Controller('users')
+@Controller('v1/clients')
 export class ClientController {
+ /*   constructor(
+        @Inject('ClientInterface')
+        private client: Client
+        
+    ) {}*/
+
+
+    constructor(private readonly clientService: ClientsService){}
+
+
 
     clients: ClientDTO[] = [];
 
     @Get()
-    getAllUsers(): ClientDTO[] {
-        return this.clients;
+    async getAllUsers() {
+       return await this.clientService.getClients();
     }
 
-    @Get(':rut')
+   /* @Get(':rut')
     getUserById(@Param('rut') rut: string): ClientDTO {
-        const client = this.clients.find(client => client.rut == rut);
-        return client;
+        //const client = this.clients.find(client => client.rut == rut);
+        return this.client.getClient(rut);
     }
 
     @Post()
@@ -34,6 +46,6 @@ export class ClientController {
     @Delete(':rut')
     deleteUser(@Param('rut') rut: string) {
         this.clients = this.clients.filter(client => client.rut !== rut);
-    }
+    }*/
 
 }

@@ -19,14 +19,5 @@ export class ClientDTO {
     @ApiProperty()
     readonly rut: string;
 
-    constructor( name: string,lastname:string,email:string,phone:string,rut:string) {
-        
-        this.name = name;
-        this.lastname= lastname;
-        this.email=email;
-        this.phone=phone;
-        this.rut=rut;
-
-    }
 }
 

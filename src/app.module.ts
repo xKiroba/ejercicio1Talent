@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientModule } from './clients/client.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+require('dotenv').config();
 
 @Module({
   imports: [
