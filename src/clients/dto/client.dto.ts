@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail } from "class-validator";
+import { IsEmail, Max, Min } from "class-validator";
 
 export class ClientDTO {
 
@@ -14,6 +14,8 @@ export class ClientDTO {
     readonly email: string;
 
     @ApiProperty()
+    @Min(9)
+    @Max(11)
     readonly phone: string;
 
     @ApiProperty()

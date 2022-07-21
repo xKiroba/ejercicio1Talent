@@ -3,6 +3,12 @@ import { Entity, Column, PrimaryColumn,  } from 'typeorm';
 
 @Entity({name:"clientes"})
 export class Clients {
+  static findOne(arg0: { rut: import("../dto/client.dto").ClientDTO; }) {
+    throw new Error("Method not implemented.");
+  }
+  static create(data: Clients) {
+    throw new Error("Method not implemented.");
+  }
  @PrimaryColumn()
   rut: string;
 
@@ -10,7 +16,7 @@ export class Clients {
   name: string;
 
   @Column()
-  lastName: string;
+  lastname: string;
 
   @Column()
   email: string;

@@ -11,16 +11,35 @@ export class ClientController {
         
     ) {}*/
 
-
     constructor(private readonly clientService: ClientsService){}
-
-
 
     clients: ClientDTO[] = [];
 
     @Get()
     async getAllUsers() {
        return await this.clientService.getClients();
+    }
+
+    @Post()
+    async createClient(@Body() clientDto: ClientDTO){
+        return await this.clientService.createClient(clientDto);
+    }
+
+    @Get(':rut')
+    async getClient(@Param('rut') rut:string){
+        return await this.clientService.getClient(rut)
+    }
+
+    @Delete(':rut')
+    async deleteClient(@Param('rut') rut:string){
+        return await this.clientService.deleteClient(rut)
+    }
+
+    @Put()
+    async updateClient(@Body() clientDto: ClientDTO){
+        return await this.clientService.updateClient(clientDto)
+    }
+
     }
 
    /* @Get(':rut')
@@ -48,4 +67,3 @@ export class ClientController {
         this.clients = this.clients.filter(client => client.rut !== rut);
     }*/
 
-}
