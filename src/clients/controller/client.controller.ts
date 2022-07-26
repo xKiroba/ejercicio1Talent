@@ -25,14 +25,14 @@ export class ClientController {
         return await this.clientService.createClient(clientDto);
     }
 
-    @Get(':rut')
-    async getClient(@Param('rut') rut:string){
-        return await this.clientService.getClient(rut)
+    @Get(':id')
+    async getClient(@Param('id') id:string){
+        return await this.clientService.getClient(id)
     }
 
-    @Delete(':rut')
-    async deleteClient(@Param('rut') rut:string){
-        return await this.clientService.deleteClient(rut)
+    @Delete(':id')
+    async deleteClient(@Param('id') id:string){
+        return await this.clientService.deleteClient(id)
     }
 
     @Put()

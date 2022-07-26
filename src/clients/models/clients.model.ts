@@ -13,6 +13,9 @@ export class Clients {
   rut: string;
 
   @Column()
+  id: string;
+
+  @Column()
   name: string;
 
   @Column()

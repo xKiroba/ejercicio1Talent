@@ -4,6 +4,9 @@ import { IsEmail, Max, Min } from "class-validator";
 export class ClientDTO {
 
     @ApiProperty()
+     id: string;
+
+    @ApiProperty()
     readonly name: string;
 
     @ApiProperty()

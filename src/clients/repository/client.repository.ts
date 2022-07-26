@@ -1,10 +1,11 @@
 
+import { NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ClientRequest } from "http";
 import { DeleteResult, EntityRepository, Repository } from "typeorm";
 import { ClientDTO } from "../dto/client.dto";
+import { dbResponseDTO } from "../dto/dbResponse.dto";
 import { Clients } from "../models/clients.model";
-//import { ClientsRepositoryInterface } from "./client.repository.interface";
 
 
 @EntityRepository(Clients)
@@ -14,11 +15,6 @@ export class ClientsRepository extends Repository<Clients> {
   }
   ClientsRepository: any;
   Clients: any;
-/*  constructor(
-    @InjectRepository(Clients)
-    private clientRepo: Repository<Clients>
-  ) {
-  }*/
 
   async getClients(): Promise<Clients[]>{
     try{
@@ -35,66 +31,35 @@ export class ClientsRepository extends Repository<Clients> {
       return client;
     }
 
-    async getClient(rut:string):Promise<Clients>{
-      const client = await this.findOne({ rut });
+    async getClient(id:string):Promise<Clients>{
+      const client = await this.findOne({ id });
       if (client) {
         return client
         
       }
-      throw new Error(`The user with id: ${rut} does not exist!`);
+      throw new NotFoundException(`The user with id: ${id} does not exist!`);
     }
 
-    async deleteClient(rut:string): Promise<Clients[]>{
-      const client = await this.findOne({rut});
+    async deleteClient(id:string): Promise<dbResponseDTO>{
+      const client = await this.findOne({id});
     
       if (client) {
-        await this.delete({rut: client.rut});
-        return []
+        await this.delete({id: client.id});
+        return {mensaje: `El usuario del id: ${id} ha sido eliminado`,status:true}
       }
-      throw new Error(`The user with id: ${rut} does not exist!`);
+      throw new NotFoundException(`The user with id: ${id} does not exist!`)
 
     }
 
-    async updateClient(clientDto: ClientDTO): Promise<Clients[]>{
-      const client = await this.findOne({'rut': clientDto.rut})
+    async updateClient(clientDto: ClientDTO): Promise<dbResponseDTO>{
+      const client = await this.findOne({'id': clientDto.id})
       if(client){
-        await this.save({rut:clientDto.rut, ...clientDto})
-        return
+        await this.save({rut:client.rut, ...clientDto})
+        return {mensaje: `El usuario del id: ${client.id} ha sido modificado`,status:true}
       } 
-      throw new Error(`The user with id: ${clientDto.rut} does not exist!`);
+      throw new NotFoundException(`The user with id: ${clientDto.id} does not exist!`);
        
        
     }
 } 
-
-
-  
-/*async updateUser() {
-  const user = await Clients.findOne({ rut });
-
-  if (!user) {
-    throw new Error(`The user with id: ${rut} does not exist!`);
-  }
-
-  Object.assign(user);
-  await user.save();
-
-  return user;
-}
-
-
-
-async deleteUser(): Promise<Clients[]>{
-  const user = await this.Clients.findOne({ where: { rut }});
-
-  if (!user) {
-    throw new Error(`The user with id: ${rut} does not exist!`);
-  }
-
-  await user.remove();
-  return true;
-}
-*/
-    
-
 
